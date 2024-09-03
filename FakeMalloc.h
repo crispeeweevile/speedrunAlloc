@@ -33,11 +33,11 @@ typedef SysType Regg;
 enum _ErrorTypes {
 	NO_ERROR, // yay :)
 	ATTEMPT_TO_ACCESS_ZERO_BYTES, // do you not know how to sanitize or smthn?
-	INVALID_DATA_SIZE,
-	FUNCTION_NOT_IMPLEMENTED,
-	NO_SPACE_IN_MEMORY,
-	FAILED_MALLOC,
-	BAD_MEMORY_ACCESS,
+	INVALID_DATA_SIZE, // DataSize provided wasn't Byte, Word, DoubleWord, or QuadWord
+	FUNCTION_NOT_IMPLEMENTED, // WIP
+	NO_SPACE_IN_MEMORY, // SystemMemory is full
+	FAILED_MALLOC, // a fatal error, meaning that a call to the actual malloc() failed
+	BAD_MEMORY_ACCESS, // you weren't allowed to access the memory
 	NO_HOLE_IN_MEMORY, // not really a fatal error, just a "warning" telling you that there was no good hole (either none at all, or just wrong size)
 };
 typedef enum _ErrorTypes Error;
@@ -80,10 +80,6 @@ Number readNumberFromMem(FPtr base, DataSize length);
 
 Error writeNumberToMem(FPtr base, DataSize length, Number value);
 
-Error FakeMalloc(Number bytes, FPtr *holder);
-
-Error SetupSysMem(Number size);
-
 Error ReserveSlot(AllocSlot alloc);
 
 FPtr GetModifiedBase(FPtr baseAddr, DataSize length);
@@ -100,10 +96,17 @@ Error GetSortedReserveList(AllocSlot **SortedReservedList, Number *LengthHolder)
 
 bool IsPointerInMemRange(FPtr ptr, AllocSlot alloc);
 
-Error FakeFree(FPtr ptr);
-
 Error FindMemoryHoleOfSize(Number ASize, AllocSlot *holder, AllocSlot *SortedReservedList, Number SortedLen);
 
-Error ReadFromArray(FPtr array, Number index, Number *value, DataSize size);
+// The following are intended for users
+Error ReadFromArray(FPtr array, Number index, Number *value, DataSize size); // fills value with the number pointed to by array[index] with size
 
-Error WriteToArray(FPtr array, Number index, Number value, DataSize size);
+Error WriteToArray(FPtr array, Number index, Number value, DataSize size); // writes a number of size to the array at index
+
+Error FakeFree(FPtr ptr); // frees fake memory via fake pointer
+
+Error FakeMalloc(Number bytes, FPtr *holder); // allocates memory in the fake system, and fills holder with a pointer to the fake array
+
+Error FreeWholeSystem(); // For when you are done using the library (deinitialize)
+
+Error SetupSysMem(Number size); // initializes the system for usage.

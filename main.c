@@ -10,16 +10,21 @@ int main(void) {
 	FPtr testArray;
 	Number anNum = 0x10;
 	Number anInd = 0;
+	Number testASize = 22;
 
 	printf("Start\n");
-	anE = FakeMalloc(22, &testArray);
+	anE = FakeMalloc(testASize, &testArray);
 	if(anE != NO_ERROR) { return anE; }
 	printf("tstA:%lx\n", testArray);
-	anE = WriteToArray(testArray, anInd, anNum + 0x10, Byte);
-	if(anE != NO_ERROR) { return anE; }
-	anE = ReadFromArray(testArray, anInd, &anNum, Byte);
-	if(anE != NO_ERROR) { return anE; }
-	printf("aNum:%lx\n", anNum);
+	for(Number index = 0; index < testASize; index++) {
+		anE = WriteToArray(testArray, index, index, Byte);
+		if(anE != NO_ERROR) { return anE; }
+		if(index % 2 == 0) {
+			anE = ReadFromArray(testArray, index / 2, &anNum, Word);
+			if(anE != NO_ERROR) { return anE; }
+			printf("index:%lu, aNum:%lx\n", index, anNum);
+		}
+	}
 	printf("End\n");
 
 	return 0;

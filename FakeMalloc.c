@@ -349,3 +349,9 @@ Error SetupSysMem(Number size) {
 
 	return NO_ERROR;
 }
+
+Error FreeWholeSystem() {
+	free(SystemMemory);
+	ReservedMemoryListEnd = 0;
+	return NO_ERROR;
+}
