@@ -13,12 +13,12 @@ int main(void) {
 
 	printf("Start\n");
 	anE = FakeMalloc(22, &testArray);
-	if(anE != NO_ERROR) { return 1; }
+	if(anE != NO_ERROR) { return anE; }
 	printf("tstA:%lx\n", testArray);
 	anE = WriteToArray(testArray, anInd, anNum + 0x10, Byte);
-	if(anE != NO_ERROR) { return 1; }
+	if(anE != NO_ERROR) { return anE; }
 	anE = ReadFromArray(testArray, anInd, &anNum, Byte);
-	if(anE != NO_ERROR) { return 1; }
+	if(anE != NO_ERROR) { return anE; }
 	printf("aNum:%lx\n", anNum);
 	printf("End\n");
 
