@@ -63,6 +63,8 @@ typedef struct _AllocSlot AllocSlot;
 extern uint8_t  *SystemMemory;
 extern FPtr ReservedMemoryListEnd;
 extern const Number MEM_SIZE;
+
+// I was planning to use these, but ultimately decided to pretend they didn't exist. I just never removed em lol
 extern Regg AX;
 extern Regg BX;
 extern Regg CX;
@@ -73,7 +75,7 @@ extern Regg SI;
 extern Regg SP;
 extern Regg BP;
 
-
+// many of these aren't actually intended for use by the user of this allocator, but I left them here, mostly due to being lazy
 Number readNumberFromMem(FPtr base, DataSize length);
 
 Error writeNumberToMem(FPtr base, DataSize length, Number value);

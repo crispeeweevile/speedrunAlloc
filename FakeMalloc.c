@@ -6,6 +6,8 @@
 const Number MEM_SIZE = _ms;
 FPtr ReservedMemoryListEnd = ~0;
 AllocSlot MEM_RANGE = {0x0, _ms};
+
+// friendly reminder these are basically depricated
 Regg AX = 0;
 Regg BX = 0;
 Regg CX = 0;
@@ -109,6 +111,7 @@ Error SetAllocSlot(Number index, AllocSlot alloc) {
 }
 
 Error GetSortedReserveList(AllocSlot **SortedReservedList, Number *LengthHolder) {
+	// just to be clear, I'm happy to get feedback on this, but i am aware it's a seriously bad sorting function
 	Number MemListLength = GetReserveListSize();
 	AllocSlot CurrAlloc;
 	AllocSlot PrevAlloc;
