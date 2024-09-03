@@ -99,14 +99,20 @@ bool IsPointerInMemRange(FPtr ptr, AllocSlot alloc);
 Error FindMemoryHoleOfSize(Number ASize, AllocSlot *holder, AllocSlot *SortedReservedList, Number SortedLen);
 
 // The following are intended for users
-Error ReadFromArray(FPtr array, Number index, Number *value, DataSize size); // fills value with the number pointed to by array[index] with size
+ // fills value with the number pointed to by array[index] with size
+Error ReadFromArray(FPtr array, Number index, Number *value, DataSize size);
 
-Error WriteToArray(FPtr array, Number index, Number value, DataSize size); // writes a number of size to the array at index
+// writes a number of size to the array at index
+Error WriteToArray(FPtr array, Number index, Number value, DataSize size);
 
-Error FakeFree(FPtr ptr); // frees fake memory via fake pointer
+// frees fake memory via fake pointer
+Error FakeFree(FPtr ptr);
 
-Error FakeMalloc(Number bytes, FPtr *holder); // allocates memory in the fake system, and fills holder with a pointer to the fake array
+// allocates memory in the fake system, and fills holder with a pointer to the fake array
+Error FakeMalloc(Number bytes, FPtr *holder);
 
-Error FreeWholeSystem(); // For when you are done using the library (deinitialize)
+// For when you are done using the library (deinitialize)
+Error FreeWholeSystem();
 
-Error SetupSysMem(Number size); // initializes the system for usage.
+// initializes the system for usage.
+Error SetupSysMem(Number size);

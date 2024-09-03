@@ -11,7 +11,7 @@ int main(void) {
 	Number anNum = 0x10;
 	Number anInd = 0;
 	Number testASize = 22;
-
+	
 	printf("Start\n");
 	anE = FakeMalloc(testASize, &testArray);
 	if(anE != NO_ERROR) { return anE; }
