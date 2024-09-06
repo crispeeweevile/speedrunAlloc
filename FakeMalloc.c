@@ -343,7 +343,7 @@ Error FakeMalloc(Number bytes, FPtr *holder) {
 
 Error SetupSysMem(Number size) {
 	SystemMemory = malloc(size * sizeof(uint8_t));
-	if(SystemMemory == NULL) { return 1; }
+	if(SystemMemory == NULL) { return FAILED_MALLOC; }
 	memset(SystemMemory, 0, size * sizeof(uint8_t));
 	ReservedMemoryListEnd = ((MEM_SIZE / SysTypeSize) - (MEM_SIZE % SysTypeSize));
 
